@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Tuner</title>
+</head>
+<body>
+        <div class="heading">
+                <h1>Guitar Tuner</h1>
+        </div>
+
+    <div id="app" class="container">
+
+
+                  <div class="form-group" v-for="(string, index) in strings" :string="string" :key="string.id">
+                    <label>
+                      <button  v-if="!show" class="btn btn-primary btn-md" @click="toggleShow(index); playSound(string.sound)"><span class="fa fa-play-circle-o"></span></button>
+                      <button v-else class="btn btn-primary btn-md"  @click="toggleShow(index); stopSound()"><span class="fa fa-pause-circle-o"></span></button>
+                      {{string.name}}
+                    </label>
+                </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            show: false,
+            strings: [
+                {
+                    name: 'E String (low)',
+                    sound: './sounds/e-l.wav',
+                    id: 1,
+                    
+                },
+                {
+                    name: 'A String',
+                    sound: './sounds/a.wav',
+                    id: 2,
+                    
+                },
+                {
+                    name: 'D String',
+                    sound: './sounds/d.wav',
+                    id: 3,
+                    
+                },
+                {
+                    name: 'G String',
+                    sound: './sounds/g.wav',
+                    id: 4,
+                    
+                },
+                {
+                    name: 'B String',
+                    sound: './sounds/b.wav',
+                    id: 5,
+                    
+                },
+                {
+                    name: 'E String (high)',
+                    sound: './sounds/e-h.wav',
+                    id: 6,
+                    
+                }
+            ]
+        },
+        methods: {
+
+            playSound (sound) {
+                this.audio = this.getAudio(sound);
+                this.audio.play();
+            },    
+
+            stopSound () {
+                 this.audio.pause();
+
+            },
+            getAudio(sound) {
+                 let audio = new Audio(sound);
+                 return audio
+            },
+            toggleShow(index) {
+                this.show = !this.show;
+                console.log()
+            }
+
+        
+        }
+
+        
+    });
+</script>
