@@ -19,10 +19,10 @@
     <div id="app" class="container">
 
 
-                  <div class="form-group" v-for="(string, index) in strings" :string="string" :key="string.id">
+                  <div class="form-group" v-for="string in strings" :string="string" :key="string.id">
                     <label>
-                      <button  v-if="!show" class="btn btn-primary btn-md" @click="toggleShow(index); playSound(string.sound)"><span class="fa fa-play-circle-o"></span></button>
-                      <button v-else class="btn btn-primary btn-md"  @click="toggleShow(index); stopSound()"><span class="fa fa-pause-circle-o"></span></button>
+                      <button  v-show="string.show" class="btn btn-primary btn-md" @click="toggleShow(string.id); playSound(string.sound)"><span class="fa fa-play-circle-o"></span></button>
+                      <button v-show="!string.show" class="btn btn-primary btn-md"  @click="toggleShow(string.id); stopSound()"><span class="fa fa-pause-circle-o"></span></button>
                       {{string.name}}
                     </label>
                 </div>
@@ -36,42 +36,48 @@
     new Vue({
         el: '#app',
         data: {
-            show: false,
+            // show: false,
             strings: [
                 {
                     name: 'E String (low)',
                     sound: './sounds/e-l.wav',
-                    id: 1,
+                    id: 0,
+                    show: true
                     
                 },
                 {
                     name: 'A String',
                     sound: './sounds/a.wav',
-                    id: 2,
+                    id: 1,
+                    show: true
                     
                 },
                 {
                     name: 'D String',
                     sound: './sounds/d.wav',
-                    id: 3,
+                    id: 2,
+                    show: true
                     
                 },
                 {
                     name: 'G String',
                     sound: './sounds/g.wav',
-                    id: 4,
+                    id: 3,
+                    show: true
                     
                 },
                 {
                     name: 'B String',
                     sound: './sounds/b.wav',
-                    id: 5,
+                    id: 4,
+                    show: true
                     
                 },
                 {
                     name: 'E String (high)',
                     sound: './sounds/e-h.wav',
-                    id: 6,
+                    id: 5,
+                    show: true
                     
                 }
             ]
@@ -91,9 +97,9 @@
                  let audio = new Audio(sound);
                  return audio
             },
-            toggleShow(index) {
-                this.show = !this.show;
-                console.log()
+            toggleShow(id) {
+                this.strings[id].show = !this.strings[id].show;
+                console.log(id)
             }
 
         
